@@ -1,0 +1,50 @@
+# Demo brand kit: Nordal Analytics, a fictional consultancy. Palette, fonts and geometry are invented.
+name: Nordal Analytics
+tagline: Análisis con criterio propio
+
+palette:
+  primary: "#1B4D6E"    # deep petrol blue: headings, cover bands
+  secondary: "#2E8B9A"  # teal: table headers, chart series
+  ink: "#1E2430"        # body text
+  muted: "#6B7280"      # captions, secondary text
+  accent: "#D97A2B"     # KPI values, highlights
+  border: "#D5DBE3"     # table borders
+  frame_bg: "#F3F6F9"   # cards, alternate rows
+  page_bg: "#FFFFFF"
+
+# Semantic colours are for results only; they never stand in for brand colours.
+semantic:
+  ok: "#2F9E6E"
+  fail: "#C8453B"
+  na: "#9AA3AD"
+  warn: "#E0A526"
+
+fonts:
+  heading:
+    name: Nordal Display      # fictional; resolves to the first fallback found
+    fallbacks: ["Liberation Sans", "DejaVu Sans"]
+  body:
+    name: Nordal Text
+    fallbacks: ["Liberation Sans", "DejaVu Sans"]
+  search_dirs:
+    linux: ["/usr/share/fonts", "~/.fonts"]
+    windows: ["%WINDIR%\\Fonts"]
+    darwin: ["/Library/Fonts", "~/Library/Fonts"]
+
+template: template.docx
+cover_background: cover_background.png
+
+# Geometry of the cover background in pixels (A4 at 150 dpi = 1241 x 1754).
+cover:
+  dpi: 150
+  width_px: 1241
+  height_px: 1754
+  text_color: "#FFFFFF"
+  bars:
+    report_type: {top: 560, height: 120, left: 110, lines: 1}
+    recipient:   {top: 720, height: 100, left: 110, lines: 1}
+    reference:   {top: 1420, height: 150, left: 110, lines: 2}
+
+legal_footer: "Nordal Analytics · Documento de trabajo elaborado para el cliente indicado en portada. Reproducción sujeta a autorización."
+signature: "Equipo de análisis · Nordal Analytics"
+synthetic_badge_color: "#E0A526"

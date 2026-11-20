@@ -1,0 +1,115 @@
+# Composition of each report type: sections in order, charts with their generation condition,
+# number of periods on the time axis and the fixed methodology texts. Changing a criterion is a
+# line here, not a deployment.
+version: 1
+
+texts:
+  comment_token: "[[COMENTARIO]]"
+  pending_token: "[[PENDIENTE]]"
+  contents_title: "Contenidos"
+  no_chart_sentence: "Con {incidents} incidencias en el periodo no se genera gráfico; la tabla recoge el desglose."
+  blocked_group_sentence: "Sin datos para este grupo en el periodo. Motivo: {reason}"
+  methodology: |
+    Las cifras de este informe se calculan a partir de la hoja de registros de cada visita,
+    una fila por punto de control evaluado. Una fila sin valoración no es un punto evaluado y
+    no entra en ningún cómputo. Cada porcentaje declara su base: la conformidad de ítems se
+    calcula sobre ítems correctos y fallidos (los «no procede» quedan fuera del denominador) y
+    la tasa de controles sin incidencias sobre el número de controles. Las actuaciones totales
+    suman todas las unidades registradas; las tasas y densidades se calculan solo sobre
+    controles de la misma unidad. Los periodos se derivan de la fecha de cada visita en la zona
+    horaria del servicio, nunca de etiquetas manuales.
+
+# Charts shared by every report type. Each one declares level, metric and a condition.
+charts:
+  - name: incidents_by_category
+    kind: bar
+    level: category
+    metric: incidents
+    title: "Incidencias por categoría"
+    caption: "Incidencias (ítems con fallo) por categoría de la lista de comprobación."
+    if: "incidents >= 3"
+  - name: results_by_category
+    kind: stacked
+    level: category
+    metric: results
+    title: "Resultados por categoría"
+    caption: "Ítems evaluados por categoría según su resultado."
+    if: "items >= 20"
+  - name: top_items
+    kind: hbar
+    level: item
+    metric: incidents
+    top_n: 10
+    title: "Ítems con más incidencias"
+    caption: "Diez ítems con más incidencias; un ítem repetido en varias categorías se cualifica entre paréntesis."
+    if: "incidents >= 5"
+  - name: conformity_by_period
+    kind: line
+    level: period
+    metric: conformity_rate
+    title: "Conformidad de ítems por mes"
+    caption: "Conformidad de ítems (correctos / correctos + fallos) por mes del rango."
+    if: "periods >= 2"
+  - name: clean_rate_by_period
+    kind: bar
+    level: period
+    metric: clean_rate
+    title: "Controles sin incidencias por mes"
+    caption: "Controles sin ningún fallo sobre el total de controles, por mes."
+    if: "periods >= 2"
+
+report_types:
+  monthly:
+    title: "Informe mensual de servicio"
+    periods_on_axis: 1
+    sections:
+      - id: summary
+        title: "Resumen del periodo"
+        blocks: [summary_table, summary_comment]
+      - id: methodology
+        title: "Metodología"
+        blocks: [methodology_text]
+      - id: groups
+        title: "{group}"
+        per_group: true
+        blocks: [group_kpis, group_comment, incidents_by_category, results_by_category, incidents_by_category_table, top_items, top_items_table, by_responsible_table]
+      - id: annex
+        title: "Anexo: avisos de carga"
+        blocks: [warnings_table]
+        toc_level: 2
+  semester:
+    title: "Informe semestral de servicio"
+    periods_on_axis: 6
+    sections:
+      - id: summary
+        title: "Resumen del semestre"
+        blocks: [summary_table, summary_by_period_table, conformity_by_period, clean_rate_by_period, summary_comment]
+      - id: methodology
+        title: "Metodología"
+        blocks: [methodology_text]
+      - id: groups
+        title: "{group}"
+        per_group: true
+        blocks: [group_kpis, group_comment, conformity_by_period, incidents_by_category, incidents_by_category_table, top_items, top_items_table, by_responsible_table]
+      - id: annex
+        title: "Anexo: avisos de carga"
+        blocks: [warnings_table]
+        toc_level: 2
+  annual:
+    title: "Informe anual de servicio"
+    periods_on_axis: 12
+    sections:
+      - id: summary
+        title: "Resumen del año"
+        blocks: [summary_table, summary_by_period_table, conformity_by_period, clean_rate_by_period, summary_comment]
+      - id: methodology
+        title: "Metodología"
+        blocks: [methodology_text]
+      - id: groups
+        title: "{group}"
+        per_group: true
+        blocks: [group_kpis, group_comment, conformity_by_period, clean_rate_by_period, incidents_by_category, incidents_by_category_table, top_items, top_items_table, by_responsible_table]
+      - id: annex
+        title: "Anexo: avisos de carga"
+        blocks: [warnings_table]
+        toc_level: 2

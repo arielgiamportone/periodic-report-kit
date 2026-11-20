@@ -118,7 +118,9 @@ def _pattern(term: str) -> re.Pattern[str]:
     body = re.escape(fold(term))
     lead = r"(?<![A-Za-z0-9])" if term[0].isalnum() else ""
     trail = "" if prefix else (r"(?![A-Za-z0-9])" if term[-1].isalnum() else "")
-    flags = 0 if (term.isupper() and term.replace(" ", "").isalpha()) else re.IGNORECASE
+    compact = term.replace(" ", "")
+    is_code = compact.isalnum() and any(ch.isalpha() for ch in compact) and term == term.upper()
+    flags = 0 if is_code else re.IGNORECASE
     return re.compile(lead + body + trail, flags)
 
 
@@ -154,6 +156,13 @@ def tracked_and_untracked_files() -> list[Path]:
     return [p for p in paths if p.is_file() and p.resolve() != SELF]
 
 
+_PRINTABLE_RUN = re.compile(rb"[\x20-\x7e]{6,}")
+
+
+def binary_strings(data: bytes) -> str:
+    return "\n".join(m.group(0).decode("ascii") for m in _PRINTABLE_RUN.finditer(data))
+
+
 def read_text_of(path: Path) -> str:
     suffix = path.suffix.lower()
     if suffix in OFFICE_SUFFIXES:
@@ -165,9 +174,9 @@ def read_text_of(path: Path) -> str:
         return "\n".join(parts)
     if suffix in TEXT_SUFFIXES:
         return path.read_text(encoding="utf-8", errors="replace")
-    # Binary assets (png, ttf, pdf...): scan the raw bytes decoded leniently so that embedded
-    # metadata strings are still checked.
-    return path.read_bytes().decode("latin-1", errors="replace")
+    # Binary assets (png, ttf, pdf...): scan only printable runs, like ``strings`` does, so that
+    # embedded metadata is checked but compressed noise does not produce false matches.
+    return binary_strings(path.read_bytes())
 
 
 @pytest.fixture(scope="module")
@@ -181,6 +190,8 @@ def test_matching_rules_behave_as_documented() -> None:
     bl = [(t, _pattern(t)) for t in ("ABCD", "Zelmira", "foo-*", "x.y")]
     assert find_leaks("code abcd lower", bl) == []
     assert find_leaks("code ABCD upper", bl) == ["ABCD"]
+    assert find_leaks("attr k9 lower", [("K9", _pattern("K9"))]) == []
+    assert binary_strings(b"\x00\x01junk\x02Terminal metadata\xff") == "Terminal metadata"
     assert find_leaks("zelmíra appears", bl) == ["Zelmira"]
     assert find_leaks("zelmiraville is a different word", bl) == []
     assert find_leaks("foo-anything matches the prefix", bl) == ["foo-*"]
