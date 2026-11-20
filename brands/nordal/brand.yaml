@@ -34,6 +34,14 @@ fonts:
 template: template.docx
 cover_background: cover_background.png
 
+# Named styles of the template used for each role. Without a template the kit refuses to render.
+styles:
+  title: Nordal Title
+  heading1: Nordal Heading 1
+  heading2: Nordal Heading 2
+  body: Nordal Body
+  caption: Nordal Caption
+
 # Geometry of the cover background in pixels (A4 at 150 dpi = 1241 x 1754).
 cover:
   dpi: 150

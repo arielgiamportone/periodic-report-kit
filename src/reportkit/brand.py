@@ -17,6 +17,15 @@ from .schema import fold, load_yaml
 
 HEX = re.compile(r"^#[0-9A-Fa-f]{6}$")
 
+# Roles a renderer needs, mapped to the template's named styles (overridable in brand.yaml).
+DEFAULT_STYLES: dict[str, str] = {
+    "title": "Title",
+    "heading1": "Heading 1",
+    "heading2": "Heading 2",
+    "body": "Normal",
+    "caption": "Caption",
+}
+
 
 @dataclass(frozen=True, slots=True)
 class Palette:
@@ -108,6 +117,7 @@ class BrandKit:
     signature: str
     synthetic_badge_color: str
     tagline: str = ""
+    styles: dict[str, str] = field(default_factory=dict)  # role -> named style in the template
     root: Path = field(default_factory=Path)
 
     @classmethod
@@ -157,6 +167,10 @@ class BrandKit:
             signature=str(raw.get("signature", "")),
             synthetic_badge_color=str(raw.get("synthetic_badge_color", "#E0A526")),
             tagline=str(raw.get("tagline", "")),
+            styles={
+                **DEFAULT_STYLES,
+                **{str(k): str(v) for k, v in (raw.get("styles") or {}).items()},
+            },
             root=root,
         )
 
