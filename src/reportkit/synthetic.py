@@ -332,9 +332,10 @@ def write_workbooks(
 
         # Main workbook: every inspection except the ones moved to the second file.
         moved = set(controls[-2:]) if options.quirks else set()
+        api_controls = set(controls[2:4])  # exported only by the API, as UTC
         duplicated = controls[0] if options.quirks else None
         main_rows = _raw_rows_from_canonical(
-            inspections[~inspections[CONTROL].isin(moved)], rng, options.quirks
+            inspections[~inspections[CONTROL].isin(moved | api_controls)], rng, options.quirks
         )
         if options.quirks:
             # A hand-written month label inside the data, with the WRONG year.
@@ -373,7 +374,7 @@ def write_workbooks(
         written.append(second_path)
 
         # A UTC export from an API: ISO timestamps with "Z". Two controls at 23:30Z (next day locally).
-        api = inspections[inspections[CONTROL].isin(controls[2:4])].copy()
+        api = inspections[inspections[CONTROL].isin(api_controls)].copy()
         api_rows = _raw_rows_from_canonical(api, rng, False)
         api_path = folder / f"registro_api_{period}.csv"
         with api_path.open("w", newline="", encoding="utf-8") as fh:

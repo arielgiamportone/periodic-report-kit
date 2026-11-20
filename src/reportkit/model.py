@@ -117,6 +117,7 @@ class Period:
     warnings: list[Warning] = field(default_factory=list)
     start: str = ""
     end: str = ""
+    quarantine: pd.DataFrame | None = None  # rows that were not recognised; never guessed
 
     @property
     def months(self) -> list[str]:
