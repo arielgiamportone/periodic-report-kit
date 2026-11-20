@@ -28,6 +28,7 @@ charts:
     title: "Incidencias por categoría"
     caption: "Incidencias (ítems con fallo) por categoría de la lista de comprobación."
     if: "incidents >= 3"
+    on_skip: no_chart_sentence   # below the threshold: table plus a sentence, no chart
   - name: results_by_category
     kind: stacked
     level: category

@@ -103,7 +103,7 @@ def top_items(df: pd.DataFrame, n: int = 10) -> pd.DataFrame:
 
 def by_dimension(df: pd.DataFrame, dim: str, label: str) -> pd.DataFrame:
     table = summarize_by(df, dim)[
-        [dim, "controls", "clean", "incidents", CLEAN_RATE, CONFORMITY_RATE]
+        [dim, "controls", "clean", "incidents", "ok", "fails", CLEAN_RATE, CONFORMITY_RATE]
     ]
     table = table.sort_values("incidents", ascending=False).rename(columns={dim: label})
     return with_total(table, label="Total")

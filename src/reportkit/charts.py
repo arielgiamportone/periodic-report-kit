@@ -70,6 +70,7 @@ class ChartSpec:
     top_n: int | None = None
     periods: int | None = None  # how many periods the axis shows (period charts)
     caption: str = ""
+    on_skip: str | None = None  # key of a catalogue text to print when the condition fails
 
     def __post_init__(self) -> None:
         if self.kind not in KINDS:
@@ -89,12 +90,21 @@ class ChartSpec:
             top_n=int(raw["top_n"]) if raw.get("top_n") else None,
             periods=int(raw["periods"]) if raw.get("periods") else None,
             caption=str(raw.get("caption", "")),
+            on_skip=raw.get("on_skip"),
         )
 
     def applies(self, df: pd.DataFrame) -> bool:
+        """Condition holds AND the series has something to draw (a chart is never empty)."""
+        if df.empty:
+            return False
         ctx = summarize(df).as_dict()
         ctx["periods"] = int(df[PERIOD].nunique()) if PERIOD in df.columns else 0
-        return evaluate_condition(self.condition, ctx)
+        if not evaluate_condition(self.condition, ctx):
+            return False
+        table = _series(self, df)
+        if table.empty:
+            return False
+        return "value" not in table.columns or table["value"].notna().any()
 
 
 @dataclass(slots=True)
@@ -157,6 +167,8 @@ def _series(spec: ChartSpec, df: pd.DataFrame) -> pd.DataFrame:
         by = summarize_by(df, col)
         metric = spec.metric if spec.metric in by.columns else "controls"
         table = by[[col, metric]].rename(columns={col: "label", metric: "value"})
+    if "value" in table.columns:
+        table = table[table["value"].notna()]
     if spec.level == "period":
         table = table.sort_values("label")
         if spec.periods:
