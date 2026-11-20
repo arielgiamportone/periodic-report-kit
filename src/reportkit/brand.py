@@ -207,8 +207,17 @@ class BrandKit:
                     candidates.append(p)
         if not candidates:
             return None
-        # Prefer the regular face: shortest stem wins ("DejaVuSans" before "DejaVuSans-Bold").
-        return sorted(candidates, key=lambda p: (len(p.stem), str(p)))[0]
+
+        # Prefer the regular face: no Bold/Italic/Oblique in the stem, then the shortest stem.
+        def rank(p: Path) -> tuple[int, int, str]:
+            stem = fold(p.stem)
+            styled = any(
+                x in stem
+                for x in ("bold", "italic", "oblique", "light", "condensed", "mono", "serif")
+            )
+            return (1 if styled else 0, len(stem), str(p))
+
+        return sorted(candidates, key=rank)[0]
 
     def resolve_font(self, spec: FontSpec) -> FontResolution:
         """Find a TTF for the requested family, then each fallback, then matplotlib's DejaVu.
