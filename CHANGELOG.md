@@ -8,6 +8,11 @@ adheres to [Semantic Versioning](https://semver.org/).
 
 ## [0.1.0] - 2026-11-20
 
+### Packaging
+
+- PyPI distribution `periodic-report-kit` (import and CLI stay `reportkit`), SPDX licence
+  expression, `publish.yml` with trusted publishing, absolute README links.
+
 ### Added
 
 - Canonical long model and YAML-declared schema, group and item catalogues.

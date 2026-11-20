@@ -1,14 +1,17 @@
 # periodic-report-kit
 
-[Versión en español](README.es.md)
+[Versión en español](https://github.com/arielgiamportone/periodic-report-kit/blob/main/README.es.md)
 
 Declarative periodic reports: tabular data in, branded Word / PDF / PPTX out, with a full-bleed
 cover, a real table-of-contents field, conditional charts and gaps for human comments. A
 clean-room case study built from a written specification, with synthetic data only.
 
 [![CI](https://github.com/arielgiamportone/periodic-report-kit/actions/workflows/ci.yml/badge.svg)](https://github.com/arielgiamportone/periodic-report-kit/actions/workflows/ci.yml)
+[![PyPI](https://img.shields.io/pypi/v/periodic-report-kit.svg)](https://pypi.org/project/periodic-report-kit/)
 ![Python 3.11 | 3.12](https://img.shields.io/badge/python-3.11%20%7C%203.12-blue)
 ![License MIT](https://img.shields.io/badge/license-MIT-green)
+
+Install: `pip install periodic-report-kit` (the importable package and the CLI are `reportkit`).
 
 ## The problem
 
@@ -123,7 +126,7 @@ report,render_docx,render_pdf,render_md,validator,synthetic,cli}.py`.
 | Closed condition evaluator for charts | `eval` | the catalogue is editable YAML; `None` is false, never zero |
 | Chart with an empty series is "not applicable" | drawing it empty | a surveys-only group satisfies `periods >= 2` but has no rate |
 
-The full log of decisions taken beyond the specification is in [`docs/DECISIONES.md`](docs/DECISIONES.md).
+The full log of decisions taken beyond the specification is in [`docs/DECISIONES.md`](https://github.com/arielgiamportone/periodic-report-kit/blob/main/docs/DECISIONES.md).
 
 ## What was measured and how to reproduce it
 

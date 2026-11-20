@@ -1,6 +1,6 @@
 # periodic-report-kit
 
-[English version](README.md)
+[English version](https://github.com/arielgiamportone/periodic-report-kit/blob/main/README.md)
 
 Informes periódicos declarativos: datos tabulares de entrada, Word / PDF / PPTX con marca de
 salida, con portada a sangre completa, índice como campo real de Word, gráficos condicionales y
@@ -122,7 +122,7 @@ catalog,report,render_docx,render_pdf,render_md,validator,synthetic,cli}.py`.
 | Evaluador cerrado de condiciones de gráfico | `eval` | el catálogo es YAML editable; `None` es falso, nunca cero |
 | Un gráfico con serie vacía «no aplica» | dibujarlo vacío | un grupo de solo encuestas cumple `periods >= 2` pero no tiene tasa |
 
-El registro completo de decisiones propias está en [`docs/DECISIONES.md`](docs/DECISIONES.md).
+El registro completo de decisiones propias está en [`docs/DECISIONES.md`](https://github.com/arielgiamportone/periodic-report-kit/blob/main/docs/DECISIONES.md).
 
 ## Qué se midió y cómo reproducirlo
 
