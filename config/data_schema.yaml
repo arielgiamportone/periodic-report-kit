@@ -1,0 +1,58 @@
+# Shape of the raw spreadsheets. Loaders translate with this file; they never interpret.
+version: 1
+
+# Local zone of the service. Every timestamp is converted here BEFORE the period is derived.
+timezone: Europe/Madrid
+# Zone of naive timestamps in the source (an API that exports UTC without a suffix). null = local.
+source_timezone: null
+
+# Tolerant globs relative to the data root. Matching folds accents and case, so
+# "03. Marzo" and "3 marzo" both match "{mm}*". {yyyy} and {mm} are substituted.
+file_patterns:
+  - "{yyyy}/{mm}*/*registro*.xlsx"
+  - "{yyyy}/{mm}*/*registro*.csv"
+  - "{yyyy}/{mm}*/*/*registro*.xlsx"
+
+# Files whose name contains one of these fragments are drafts, never sources.
+skip_name_fragments: ["copia", "copy", "borrador", "draft", "antiguo", "old", "prueba"]
+
+# Sheets with one row per evaluated item. Anything else is ignored...
+detail_sheets: ["Registros", "Registro", "Datos"]
+# ...and these are explicitly refused: hand-made pivots and summaries are never a source.
+forbidden_sheets: ["Resumen", "Tabla dinámica", "Dinámica", "Totales", "Cuadro"]
+
+# Canonical column -> accepted raw headers (accent/case-insensitive).
+columns:
+  control_id: ["Id visita", "ID visita", "Visita", "Nº visita"]
+  group: ["Línea", "Servicio", "Línea de servicio"]
+  element: ["Código elemento", "Elemento", "Cód. elemento"]
+  element_name: ["Nombre elemento", "Denominación"]
+  category: ["Apartado", "Bloque", "Sección"]
+  item: ["Punto de control", "Punto", "Pregunta"]
+  result: ["Valoración", "Resultado", "Estado"]
+  comment: ["Observaciones", "Comentario", "Notas"]
+  timestamp: ["Fecha visita", "Fecha", "Fecha de la visita", "Fecha/hora"]
+  unit: ["Tipo de registro", "Tipo"]
+
+# Free dimensions (become columns of the canonical model with these names).
+dimensions:
+  responsible: ["Responsable", "Concesionario", "Empresa responsable"]
+  site: ["Zona", "Ubicación", "Planta"]
+
+# Raw result values -> canonical ok / fail / na. An EMPTY result is not an item (photo, note).
+result_values:
+  ok: ["Correcto", "OK", "Sí", "Si", "Conforme", "Cumple", "1"]
+  fail: ["Incorrecto", "KO", "No", "No conforme", "Incumple", "0"]
+  na: ["No procede", "N/A", "NA", "No aplica", "No evaluable"]
+
+# Unit of each row. Rates are computed only over the default unit; other units add to volume.
+default_unit: control
+unit_values:
+  control: ["Inspección", "Inspeccion", "Control", "Visita"]
+  survey: ["Encuesta", "Cuestionario"]
+
+# Rows that are only a hand-written month label inside the data ("ENERO 2025").
+separator_row_pattern: "^(ENERO|FEBRERO|MARZO|ABRIL|MAYO|JUNIO|JULIO|AGOSTO|SEPTIEMBRE|OCTUBRE|NOVIEMBRE|DICIEMBRE)\\s+\\d{4}$"
+
+# Cloud-synced folders fail transiently; retry before concluding that a file is empty.
+io_retries: 3

@@ -1,0 +1,32 @@
+# Report groups (chapters). A group may differ from the operational line in the source.
+groups:
+  - code: CAFE
+    name: Cafeterías
+    labels: ["Cafetería", "Cafeterias", "Cafés", "Bar-cafetería"]
+    has_responsible: true
+  - code: KIOS
+    name: Quioscos
+    labels: ["Quiosco", "Kiosco", "Kioscos", "Prensa"]
+    has_responsible: true
+  - code: ASEO
+    name: Aseos
+    labels: ["Aseo", "Baños", "Servicios"]
+    has_responsible: false
+  - code: INFO
+    name: Puntos de información
+    labels: ["Información", "Punto de información", "Mostrador"]
+    has_responsible: false
+  - code: LIMP
+    name: Limpieza de zonas comunes
+    labels: ["Limpieza", "Zonas comunes"]
+    has_responsible: false
+  - code: ENCU
+    name: Encuestas de satisfacción
+    labels: ["Encuesta", "Encuestas", "Cuestionarios"]
+    has_responsible: false
+    unit: survey          # volume only: never enters a rate or a density
+    blocked_reason: "Sin fuente de datos este periodo: el módulo de encuestas no exporta."
+
+# Elements that report under a different group than the line they are filed in.
+element_reassignments:
+  "KIOS-07": CAFE

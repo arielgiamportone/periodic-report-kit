@@ -1,0 +1,34 @@
+# Checklist levels. Category (6-12 values, for breakdowns) and item (10-50, for rankings) are
+# never mixed in the same chart. Raw labels are folded (accents, case, numeric prefixes).
+normalization:
+  fold_accents: true
+  strip_numeric_prefix: true   # "3. Higiene" -> "Higiene"
+
+categories:
+  - name: Higiene
+    aliases: ["Higiene y limpieza", "Limpieza del local"]
+  - name: Señalización
+    aliases: ["Senalizacion", "Rotulación", "Cartelería"]
+  - name: Documentación
+    aliases: ["Documentos", "Registros obligatorios"]
+  - name: Atención al cliente
+    aliases: ["Atención", "Trato al cliente"]
+  - name: Seguridad
+    aliases: ["Seguridad y emergencias", "Prevención"]
+  - name: Instalaciones
+    aliases: ["Equipamiento", "Mobiliario"]
+  - name: Precios
+    aliases: ["Precios y tickets", "Lista de precios"]
+  - name: Horario
+    aliases: ["Horarios", "Apertura"]
+
+# Explicit merges only: two different concepts are never merged by similarity.
+merges:
+  "Limpieza e higiene": Higiene
+  "Señaletica": Señalización
+
+# A category cell holding one of these is a shifted column, not a category.
+shifted_column_symptoms:
+  - "^\\d{4}-\\d{2}-\\d{2}"
+  - "^\\d{1,2}/\\d{1,2}/\\d{2,4}"
+  - "^(correcto|incorrecto|no procede|ok|ko)$"
