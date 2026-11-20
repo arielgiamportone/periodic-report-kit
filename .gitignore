@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.eggs/
+.venv/
+venv/
+.python-version
+
+# Tooling
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# Kit output (never commit deliverables or caches)
+out/
+.reportkit-cache/
+*.parquet
+~$*
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
