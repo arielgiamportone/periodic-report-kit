@@ -7,6 +7,13 @@ salida, con portada a sangre completa, índice como campo real de Word, gráfico
 huecos para el comentario humano. Caso de estudio clean-room construido a partir de una
 especificación escrita, solo con datos sintéticos.
 
+[![CI](https://github.com/arielgiamportone/periodic-report-kit/actions/workflows/ci.yml/badge.svg)](https://github.com/arielgiamportone/periodic-report-kit/actions/workflows/ci.yml)
+[![PyPI](https://img.shields.io/pypi/v/periodic-report-kit.svg)](https://pypi.org/project/periodic-report-kit/)
+![Python 3.11 | 3.12](https://img.shields.io/badge/python-3.11%20%7C%203.12-blue)
+![License MIT](https://img.shields.io/badge/license-MIT-green)
+
+Instalación: `pip install periodic-report-kit` (el paquete importable y la CLI son `reportkit`).
+
 ## El problema
 
 En muchos servicios de inspección o control recurrente, el informe periódico se ensambla a mano:
