@@ -5,6 +5,7 @@ from docx import Document
 from pptx import Presentation
 
 from reportkit.brand import BrandKit
+from reportkit.defaults import default_brand_path
 from reportkit.render_md import (
     VISUAL_BLOCKS,
     chip_colour,
@@ -21,7 +22,7 @@ DEMO = ROOT / "examples" / "demo_deck.md"
 
 @pytest.fixture(scope="module")
 def brand() -> BrandKit:
-    return BrandKit.load(ROOT / "brands" / "nordal" / "brand.yaml")
+    return BrandKit.load(default_brand_path())
 
 
 def test_parser_splits_slides_and_attaches_lead_and_foot() -> None:

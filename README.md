@@ -69,14 +69,17 @@ Configuration files, not code, hold the rules:
 
 | File | Governs |
 |---|---|
-| `config/data_schema.yaml` | raw column names with accepted variants, valid and forbidden sheets, raw result values, local time zone, tolerant file globs |
-| `config/groups.yaml` | report groups (chapters), label variants, responsible dimension, element reassignments, reason when a group has no source |
-| `config/items.yaml` | raw category -> canonical (accents, case, numeric prefixes), explicit merges, symptoms of a shifted column |
-| `config/report_catalog.yaml` | sections per report type, charts with their condition (`if: incidents >= 3`), periods on the axis, fixed texts |
-| `brands/<brand>/brand.yaml` | palette, semantic palette, fonts with fallbacks, template, cover background, bar geometry, legal footer |
+| `data/config/data_schema.yaml` | raw column names with accepted variants, valid and forbidden sheets, raw result values, local time zone, tolerant file globs |
+| `data/config/groups.yaml` | report groups (chapters), label variants, responsible dimension, element reassignments, reason when a group has no source |
+| `data/config/items.yaml` | raw category -> canonical (accents, case, numeric prefixes), explicit merges, symptoms of a shifted column |
+| `data/config/report_catalog.yaml` | sections per report type, charts with their condition (`if: incidents >= 3`), periods on the axis, fixed texts |
+| `data/brands/<brand>/brand.yaml` | palette, semantic palette, fonts with fallbacks, template, cover background, bar geometry, legal footer |
 
 Package layout: `src/reportkit/{schema,model,loaders,metrics,charts,tables,comments,brand,catalog,
-report,render_docx,render_pdf,render_md,validator,synthetic,cli}.py`.
+report,render_docx,render_pdf,render_md,validator,synthetic,defaults,cli}.py`. The default
+configuration and the demo brand ship inside the package under `src/reportkit/data/` and are
+resolved with `importlib.resources`, so the installed wheel works from any directory;
+`reportkit paths` prints where they live so you can copy them and pass `--config` / `--brand`.
 
 ## Domain rules (each one has a test)
 

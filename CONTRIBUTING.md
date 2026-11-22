@@ -18,7 +18,7 @@ ruff check .
   an "anonymised" one.
 - **No secrets, no local paths.** CI runs `gitleaks`; the leak-guard test (`tests/test_no_leaks.py`)
   scans the tree and the git history.
-- **Rules live in YAML.** A business criterion that may change belongs in `config/*.yaml`, with a
+- **Rules live in YAML.** A business criterion that may change belongs in `src/reportkit/data/config/*.yaml`, with a
   test, not in an `if` inside the code.
 - **Public interfaces are typed** and documented. Code and identifiers are in English; user-facing
   report text defaults to Spanish and is configurable.

@@ -7,7 +7,7 @@ Fecha: 2026-11-20 · Paquete: `reportkit` 0.1.0 · Rama: `claude/keen-mendel-q7c
 | Sección de la spec | Estado | Dónde |
 |---|---|---|
 | 3.1 Capas y modelo canónico largo | Completo | `model.py`, `loaders.py` |
-| 3.2 Cinco ficheros de configuración | Completo (nombres en inglés) | `config/*.yaml`, `brands/nordal/brand.yaml` |
+| 3.2 Cinco ficheros de configuración | Completo (nombres en inglés) | `src/reportkit/data/config/*.yaml`, `src/reportkit/data/brands/nordal/brand.yaml` |
 | 3.3 Flujo de datos de un mes (globs, fila a fila, cuarentena, periodo por fecha, copias, caché, rango) | Completo | `loaders.py` |
 | 4 Reglas de dominio 1–14 | Completo, cada una con test | `tests/test_loaders.py`, `tests/test_metrics.py`, `tests/test_report.py` |
 | 5 Render Word (plantilla, portada texto sobre fondo anclado, TOC `\o`, primera página con membrete, tablas, gráficos, huecos, cabecera) | Completo | `render_docx.py`, `tests/test_render_docx.py` |
@@ -75,6 +75,6 @@ con códigos sensibles a mayúsculas.
 1. **Historial de commits.** Los mensajes llevan los avances de la sesión de construcción; confirmar que no contienen nada de la lista prohibida (la guarda ya barre `git log -p`, pero conviene lectura humana de los mensajes).
 2. **Identificadores coincidentes.** La guarda no puede detectar nombres de la fuente que no estén en la lista; comparar `src/reportkit` contra la fuente buscando identificadores no triviales y fragmentos de cinco o más líneas.
 3. **Constantes.** 150 dpi, 170 dpi, 1241×1754 px, factor 72/dpi y `\o "1-2"` vienen de la especificación o de normas públicas (A4 a 150 dpi); revisar que ninguna otra constante coincida con la fuente sin venir de una norma.
-4. **Binarios.** Solo `brands/nordal/template.docx` y `brands/nordal/cover_background.png`, ambos generados por `scripts/build_brand_kit.py`; no hay CSV ni Excel versionados.
+4. **Binarios.** Solo `src/reportkit/data/brands/nordal/template.docx` y `src/reportkit/data/brands/nordal/cover_background.png`, ambos generados por `scripts/build_brand_kit.py`; no hay CSV ni Excel versionados.
 5. **Atribución y licencia.** README en ambos idiomas con la atribución literal; `LICENSE` MIT desde el primer commit.
-6. **Textos fijos de metodología** en `config/report_catalog.yaml`: redactados de nuevo para esta implementación; comprobar que no reproducen frases de los informes originales.
+6. **Textos fijos de metodología** en `src/reportkit/data/config/report_catalog.yaml`: redactados de nuevo para esta implementación; comprobar que no reproducen frases de los informes originales.

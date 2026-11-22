@@ -6,6 +6,7 @@ from docx import Document
 from reportkit.brand import BrandKit
 from reportkit.catalog import ReportCatalog
 from reportkit.comments import CommentStore
+from reportkit.defaults import default_brand_path, default_config_dir
 from reportkit.loaders import load_range
 from reportkit.model import GROUP
 from reportkit.placeholders import COMMENT_TOKEN, PENDING_TOKEN, SYNTHETIC_TAG
@@ -20,8 +21,8 @@ ROOT = Path(__file__).resolve().parents[1]
 def env(tmp_path_factory, schema, groups, items):
     root = tmp_path_factory.mktemp("env")
     write_workbooks(root / "data", ["2026-02", "2026-03"], SyntheticOptions(seed=5))
-    brand = BrandKit.load(ROOT / "brands" / "nordal" / "brand.yaml")
-    catalog = ReportCatalog.load(ROOT / "config" / "report_catalog.yaml")
+    brand = BrandKit.load(default_brand_path())
+    catalog = ReportCatalog.load(default_config_dir() / "report_catalog.yaml")
     period = load_range("2026-02", "2026-03", schema, groups, items, root / "data", use_cache=False)
     return root, brand, catalog, period
 

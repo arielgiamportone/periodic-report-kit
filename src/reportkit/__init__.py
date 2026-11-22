@@ -37,7 +37,7 @@ from .report import ReportRequest, ReportResult, build_report
 from .schema import DataSchema, GroupCatalog, ItemCatalog
 from .validator import ContrastReport, contrast
 
-__version__ = "0.1.0"
+__version__ = "0.1.1"
 
 __all__ = [
     "CLEAN_RATE",

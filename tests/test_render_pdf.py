@@ -4,6 +4,7 @@ from pathlib import Path
 import pytest
 
 from reportkit.brand import BrandKit
+from reportkit.defaults import default_brand_path
 from reportkit.placeholders import SYNTHETIC_TAG
 from reportkit.render_pdf import PdfCover, compose_pdf, page_count, page_texts
 
@@ -12,7 +13,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 @pytest.fixture(scope="module")
 def brand() -> BrandKit:
-    return BrandKit.load(ROOT / "brands" / "nordal" / "brand.yaml")
+    return BrandKit.load(default_brand_path())
 
 
 def _three_pages() -> list[str]:

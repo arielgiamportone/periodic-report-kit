@@ -47,3 +47,43 @@ jobs:
       - run: sudo apt-get update && sudo apt-get install -y --no-install-recommends fonts-dejavu-core
       - run: pip install -e ".[dev]"
       - run: pytest
+
+  wheel:
+    name: wheel smoke test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: sudo apt-get update && sudo apt-get install -y --no-install-recommends fonts-dejavu-core
+      - run: pip install build
+      - run: python -m build
+      - name: The wheel and the sdist must carry the configuration and the demo brand
+        run: |
+          python - <<'PY'
+          import glob, tarfile, zipfile
+          wheel = glob.glob("dist/*.whl")[0]
+          names = zipfile.ZipFile(wheel).namelist()
+          print("\n".join(names))
+          needed = ["reportkit/data/brands/nordal/brand.yaml", "reportkit/data/brands/nordal/template.docx",
+                    "reportkit/data/brands/nordal/cover_background.png", "reportkit/data/config/data_schema.yaml",
+                    "reportkit/data/config/groups.yaml", "reportkit/data/config/items.yaml",
+                    "reportkit/data/config/report_catalog.yaml"]
+          missing = [n for n in needed if n not in names]
+          assert not missing, f"wheel is missing {missing}"
+          sdist = glob.glob("dist/*.tar.gz")[0]
+          members = tarfile.open(sdist).getnames()
+          missing = [n for n in needed if not any(m.endswith("src/" + n) for m in members)]
+          assert not missing, f"sdist is missing {missing}"
+          PY
+      - name: Install the wheel in a clean venv outside the source tree and run the demo
+        run: |
+          python -m venv /tmp/clean-venv
+          /tmp/clean-venv/bin/pip install --quiet dist/*.whl
+          cd /tmp
+          /tmp/clean-venv/bin/reportkit --version
+          /tmp/clean-venv/bin/reportkit paths
+          /tmp/clean-venv/bin/reportkit demo --out /tmp/prk-nopdf --months 2 --no-pdf
+          /tmp/clean-venv/bin/reportkit demo --out /tmp/prk-pdf --months 2 --pdf
+          ls /tmp/prk-pdf/reports/*/v001/

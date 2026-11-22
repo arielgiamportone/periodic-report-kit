@@ -6,6 +6,7 @@ import pytest
 from reportkit.brand import BrandKit
 from reportkit.catalog import ReportCatalog
 from reportkit.comments import CommentStore
+from reportkit.defaults import default_brand_path, default_config_dir
 from reportkit.loaders import load_range
 from reportkit.report import ReportRequest, build_report
 from reportkit.synthetic import SyntheticOptions, write_workbooks
@@ -18,8 +19,8 @@ ROOT = Path(__file__).resolve().parents[1]
 def delivered(tmp_path_factory, schema, groups, items):
     root = tmp_path_factory.mktemp("val")
     write_workbooks(root / "data", ["2026-03"], SyntheticOptions(seed=9))
-    brand = BrandKit.load(ROOT / "brands" / "nordal" / "brand.yaml")
-    catalog = ReportCatalog.load(ROOT / "config" / "report_catalog.yaml")
+    brand = BrandKit.load(default_brand_path())
+    catalog = ReportCatalog.load(default_config_dir() / "report_catalog.yaml")
     period = load_range("2026-03", "2026-03", schema, groups, items, root / "data", use_cache=False)
     store = CommentStore.load("2026-03", root / "comments")
     result = build_report(

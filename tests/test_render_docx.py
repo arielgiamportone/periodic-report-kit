@@ -7,6 +7,7 @@ from docx import Document
 from docx.oxml.ns import qn
 
 from reportkit.brand import BrandKit
+from reportkit.defaults import default_brand_path
 from reportkit.placeholders import COMMENT_TOKEN, SYNTHETIC_TAG
 from reportkit.render_docx import BrandDocument, CoverData
 
@@ -15,7 +16,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 @pytest.fixture(scope="module")
 def brand() -> BrandKit:
-    return BrandKit.load(ROOT / "brands" / "nordal" / "brand.yaml")
+    return BrandKit.load(default_brand_path())
 
 
 @pytest.fixture(scope="module")
@@ -46,7 +47,7 @@ def generated(brand, tmp_path_factory) -> Path:
         caption="Tabla 1",
     )
     doc.heading("Anexo: avisos de carga", level=2, in_toc=False)
-    doc.chart(ROOT / "brands" / "nordal" / "cover_background.png", caption="Figura 1")
+    doc.chart(default_brand_path().parent / "cover_background.png", caption="Figura 1")
     doc.kpi_row([("50", "controles"), ("12", "incidencias")])
     return doc.save(out)
 

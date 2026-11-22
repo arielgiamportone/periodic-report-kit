@@ -6,6 +6,20 @@ adheres to [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-11-22
+
+### Fixed
+
+- The package installed from PyPI did not include the configuration or the demo brand, and
+  `reportkit demo` failed outside a repository checkout. The defaults now ship inside the
+  package (`reportkit/data/`) and are resolved with `importlib.resources`.
+
+### Added
+
+- `reportkit paths` prints where the packaged defaults live.
+- CI builds the wheel, lists its contents and runs `reportkit demo` from a clean venv outside
+  the source tree.
+
 ## [0.1.0] - 2026-11-20
 
 ### Packaging

@@ -11,6 +11,7 @@ from . import __version__
 from .brand import BrandKit
 from .catalog import ReportCatalog
 from .comments import CommentStore
+from .defaults import check_defaults, default_brand_path, default_config_dir
 from .loaders import load_range
 from .model import month_range
 from .report import ReportRequest, build_report
@@ -20,9 +21,8 @@ app = typer.Typer(
     help="Periodic branded reports from tabular data.", no_args_is_help=True, add_completion=False
 )
 
-PACKAGE_ROOT = Path(__file__).resolve().parents[2]
-DEFAULT_CONFIG = PACKAGE_ROOT / "config"
-DEFAULT_BRAND = PACKAGE_ROOT / "brands" / "nordal" / "brand.yaml"
+DEFAULT_CONFIG = default_config_dir()
+DEFAULT_BRAND = default_brand_path()
 
 ConfigOpt = Annotated[
     Path,
@@ -56,6 +56,13 @@ def main(version: Annotated[bool, typer.Option("--version", is_eager=True)] = Fa
     if version:
         typer.echo(f"reportkit {__version__}")
         raise typer.Exit()
+
+
+@app.command()
+def paths() -> None:
+    """Print where the packaged defaults live (copy them to start your own config or brand)."""
+    for path in check_defaults():
+        typer.echo(str(path))
 
 
 @app.command()

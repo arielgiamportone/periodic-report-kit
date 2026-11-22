@@ -2,7 +2,7 @@
 
 Usage::
 
-    python scripts/build_brand_kit.py brands/nordal/brand.yaml [--from-template]
+    python scripts/build_brand_kit.py src/reportkit/data/brands/nordal/brand.yaml [--from-template]
 
 By default the cover background is drawn with Pillow from the geometry declared in
 ``brand.yaml`` (deterministic, no office suite needed). With ``--from-template`` the template

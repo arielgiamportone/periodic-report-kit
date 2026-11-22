@@ -2,10 +2,11 @@ from pathlib import Path
 
 import pytest
 
+from reportkit.defaults import default_config_dir
 from reportkit.schema import DataSchema, GroupCatalog, ItemCatalog
 
 ROOT = Path(__file__).resolve().parents[1]
-CONFIG = ROOT / "config"
+CONFIG = default_config_dir()
 
 
 @pytest.fixture(scope="session")

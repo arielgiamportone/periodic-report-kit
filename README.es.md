@@ -71,14 +71,18 @@ Las reglas viven en configuración, no en código:
 
 | Fichero | Gobierna |
 |---|---|
-| `config/data_schema.yaml` | columnas de origen con variantes, hojas válidas y prohibidas, valores crudos del resultado, zona horaria, globs tolerantes |
-| `config/groups.yaml` | grupos del informe (capítulos), variantes de etiqueta, dimensión responsable, reasignaciones por elemento, motivo de bloqueo sin fuente |
-| `config/items.yaml` | categoría cruda -> canónica (acentos, mayúsculas, prefijos numéricos), fusiones explícitas, síntomas de columna desplazada |
-| `config/report_catalog.yaml` | secciones por tipo de informe, gráficos con su condición (`if: incidents >= 3`), periodos del eje, textos fijos |
-| `brands/<marca>/brand.yaml` | paleta, paleta semántica, fuentes con respaldo, plantilla, fondo de portada, geometría de barras, pie legal |
+| `data/config/data_schema.yaml` | columnas de origen con variantes, hojas válidas y prohibidas, valores crudos del resultado, zona horaria, globs tolerantes |
+| `data/config/groups.yaml` | grupos del informe (capítulos), variantes de etiqueta, dimensión responsable, reasignaciones por elemento, motivo de bloqueo sin fuente |
+| `data/config/items.yaml` | categoría cruda -> canónica (acentos, mayúsculas, prefijos numéricos), fusiones explícitas, síntomas de columna desplazada |
+| `data/config/report_catalog.yaml` | secciones por tipo de informe, gráficos con su condición (`if: incidents >= 3`), periodos del eje, textos fijos |
+| `data/brands/<marca>/brand.yaml` | paleta, paleta semántica, fuentes con respaldo, plantilla, fondo de portada, geometría de barras, pie legal |
 
 Estructura del paquete: `src/reportkit/{schema,model,loaders,metrics,charts,tables,comments,brand,
-catalog,report,render_docx,render_pdf,render_md,validator,synthetic,cli}.py`.
+catalog,report,render_docx,render_pdf,render_md,validator,synthetic,defaults,cli}.py`. La
+configuración por defecto y la marca de demostración viajan dentro del paquete, en
+`src/reportkit/data/`, y se resuelven con `importlib.resources`, de modo que el wheel instalado
+funciona desde cualquier directorio; `reportkit paths` imprime dónde están para copiarlas y
+pasar `--config` / `--brand`.
 
 ## Reglas de dominio (todas con test)
 

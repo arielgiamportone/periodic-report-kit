@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "periodic-report-kit"
-version = "0.1.0"
+version = "0.1.1"
 description = "Declarative periodic reports: tabular data to branded Word/PDF/PPTX with full-bleed cover, TOC field and visual blocks."
 readme = "README.md"
 license = "MIT"
@@ -62,7 +62,7 @@ reportkit = "reportkit.cli:app"
 where = ["src"]
 
 [tool.setuptools.package-data]
-reportkit = ["py.typed"]
+reportkit = ["py.typed", "data/**/*"]
 
 [tool.ruff]
 line-length = 100

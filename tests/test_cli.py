@@ -10,7 +10,7 @@ runner = CliRunner()
 
 def test_version() -> None:
     result = runner.invoke(app, ["--version"])
-    assert result.exit_code == 0 and "reportkit 0.1.0" in result.output
+    assert result.exit_code == 0 and "reportkit 0.1.1" in result.output
 
 
 def test_demo_then_comments_validate_and_md(tmp_path: Path) -> None:
