@@ -1,0 +1,203 @@
+{
+  "voz": {
+    "nombre": "ArielG",
+    "voice_id": "DllydG30ovOvJTxuT2si"
+  },
+  "modelo": "eleven_v4",
+  "flow_url": "https://elevenlabs.io/app/flows/PlaqaTy3MRcnXy5NtTNH",
+  "silencio_entre_cortes_s": 0.8,
+  "duracion_total_s": 418.96,
+  "cortes": [
+    {
+      "id": "01_apertura",
+      "archivo": "01_apertura.mp3",
+      "accion": {
+        "tab": "informe",
+        "scroll": "top"
+      },
+      "duracion_s": 33.57,
+      "inicio_en_completo_s": 0.0
+    },
+    {
+      "id": "02_regla",
+      "archivo": "02_regla.mp3",
+      "accion": {
+        "tab": "informe",
+        "scroll": "top"
+      },
+      "duracion_s": 10.53,
+      "inicio_en_completo_s": 34.37
+    },
+    {
+      "id": "03_cabecera",
+      "archivo": "03_cabecera.mp3",
+      "accion": {
+        "tab": "informe",
+        "scrollTo": ".pt-masthead"
+      },
+      "duracion_s": 17.95,
+      "inicio_en_completo_s": 45.7
+    },
+    {
+      "id": "04_sabe_hacer",
+      "archivo": "04_sabe_hacer.mp3",
+      "accion": {
+        "tab": "informe",
+        "scrollToText": "Qué sabe hacer"
+      },
+      "duracion_s": 22.67,
+      "inicio_en_completo_s": 64.45
+    },
+    {
+      "id": "05_trabajando",
+      "archivo": "05_trabajando.mp3",
+      "accion": {
+        "tab": "informe",
+        "scrollToText": "En qué se está trabajando"
+      },
+      "duracion_s": 18.91,
+      "inicio_en_completo_s": 87.92
+    },
+    {
+      "id": "06_aporta",
+      "archivo": "06_aporta.mp3",
+      "accion": {
+        "tab": "informe",
+        "scrollToText": "Qué aporta, frente a lo que cuesta"
+      },
+      "duracion_s": 20.11,
+      "inicio_en_completo_s": 107.63
+    },
+    {
+      "id": "07_esfuerzo",
+      "archivo": "07_esfuerzo.mp3",
+      "accion": {
+        "tab": "informe",
+        "scrollToText": "Dónde va el esfuerzo"
+      },
+      "duracion_s": 26.36,
+      "inicio_en_completo_s": 128.54
+    },
+    {
+      "id": "08_participacion",
+      "archivo": "08_participacion.mp3",
+      "accion": {
+        "tab": "informe",
+        "scrollToText": "Qué parte de cada proyecto de cliente pone el área"
+      },
+      "duracion_s": 32.76,
+      "inicio_en_completo_s": 155.7
+    },
+    {
+      "id": "09_caminos",
+      "archivo": "09_caminos.mp3",
+      "accion": {
+        "tab": "informe",
+        "scrollToText": "Dónde estamos, y a dónde lleva cada camino"
+      },
+      "duracion_s": 11.23,
+      "inicio_en_completo_s": 189.26
+    },
+    {
+      "id": "10_posicion",
+      "archivo": "10_posicion.mp3",
+      "accion": {
+        "tab": "posicion",
+        "scroll": "top"
+      },
+      "duracion_s": 14.45,
+      "inicio_en_completo_s": 201.29
+    },
+    {
+      "id": "11_escalera",
+      "archivo": "11_escalera.mp3",
+      "accion": {
+        "tab": "posicion",
+        "scrollToText": "Dónde estamos"
+      },
+      "duracion_s": 19.72,
+      "inicio_en_completo_s": 216.54
+    },
+    {
+      "id": "12_capacidad_caminos",
+      "archivo": "12_capacidad_caminos.mp3",
+      "accion": {
+        "tab": "posicion",
+        "scrollToText": "Qué caminos podemos seguir"
+      },
+      "duracion_s": 16.27,
+      "inicio_en_completo_s": 237.06
+    },
+    {
+      "id": "13_detalle",
+      "archivo": "13_detalle.mp3",
+      "accion": {
+        "tab": "detalle",
+        "scroll": "top"
+      },
+      "duracion_s": 12.83,
+      "inicio_en_completo_s": 254.13
+    },
+    {
+      "id": "14_carga",
+      "archivo": "14_carga.mp3",
+      "accion": {
+        "tab": "detalle",
+        "scrollToText": "Cuánto puede hacer a la vez"
+      },
+      "duracion_s": 27.87,
+      "inicio_en_completo_s": 267.76
+    },
+    {
+      "id": "15_euros",
+      "archivo": "15_euros.mp3",
+      "accion": {
+        "tab": "detalle",
+        "scrollToText": "Cuánto vale, en euros"
+      },
+      "duracion_s": 23.41,
+      "inicio_en_completo_s": 296.43
+    },
+    {
+      "id": "16_productos",
+      "archivo": "16_productos.mp3",
+      "accion": {
+        "tab": "productos",
+        "scroll": "top",
+        "scrollLuego": "[data-draw=prod_servicios]"
+      },
+      "duracion_s": 36.99,
+      "inicio_en_completo_s": 320.64
+    },
+    {
+      "id": "17_cartilla",
+      "archivo": "17_cartilla.mp3",
+      "accion": {
+        "tab": "productos",
+        "cartilla": "ayundata"
+      },
+      "duracion_s": 22.2,
+      "inicio_en_completo_s": 358.43
+    },
+    {
+      "id": "18_reglas",
+      "archivo": "18_reglas.mp3",
+      "accion": {
+        "tab": "informe",
+        "scroll": "top"
+      },
+      "duracion_s": 23.72,
+      "inicio_en_completo_s": 381.43
+    },
+    {
+      "id": "19_cierre",
+      "archivo": "19_cierre.mp3",
+      "accion": {
+        "tab": "informe",
+        "scroll": "top"
+      },
+      "duracion_s": 13.01,
+      "inicio_en_completo_s": 405.95
+    }
+  ]
+}
